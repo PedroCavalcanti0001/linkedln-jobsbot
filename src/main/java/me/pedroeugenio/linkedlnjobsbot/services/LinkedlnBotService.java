@@ -76,7 +76,7 @@ public class LinkedlnBotService {
                     .concat("&sortBy=")
                     .concat(sort.getText());
             if (!moment.equals(MomentFilterEnum.ANY))
-                params = params.concat("&f_TPR=").concat(moment.getId());
+                params = params.concat("&f_TPR=").concat(moment.getFilterId());
             return BASE_URL.concat(params);
         } catch (IOException e) {
             LOGGER.error(e.getMessage(), e);

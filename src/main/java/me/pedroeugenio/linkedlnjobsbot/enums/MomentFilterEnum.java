@@ -6,13 +6,13 @@ public enum MomentFilterEnum {
     WEEK("r604800"),
     MONTH("r2592000");
 
-    private final String id;
+    private final String filterId;
 
     MomentFilterEnum(String filterId) {
-        this.id = filterId;
+        this.filterId = filterId;
     }
 
-    public String getId() {
-        return id;
+    public String getFilterId() {
+        return filterId;
     }
 }
