@@ -2,19 +2,22 @@ package me.pedroeugenio.linkedlnjobsbot.services;
 
 import me.pedroeugenio.linkedlnjobsbot.enums.MomentFilterEnum;
 import me.pedroeugenio.linkedlnjobsbot.models.Job;
+import me.pedroeugenio.linkedlnjobsbot.utils.TimeConvertUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.Duration;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class LinkedlnBotService {
@@ -40,26 +43,33 @@ public class LinkedlnBotService {
 
     public List<Job> getAllJobList(MomentFilterEnum moment, int timeToFilter, String location) {
         try {
-            String url = makeUrl(moment);
+            String url = makeUrl(moment, location);
             Document pageDocument = null;
             pageDocument = getPageDocument(url);
-            Elements allJobs = getJobsElements(pageDocument);
-            return allJobs.stream().map(this::parseToJob).collect(Collectors.toList());
+            Elements allElementJobs = getJobsElements(pageDocument);
+            List<Job> allJobs = allElementJobs.stream().map(this::parseToJob).collect(Collectors.toList());
+            return filterByTime(allJobs, timeToFilter);
         } catch (IOException e) {
-            throw new IllegalArgumentException("Ocorreu uma mapear a lista de jobs", e);
+            throw new IllegalArgumentException("Ocorreu um erro ao mapear a lista de jobs", e);
         }
     }
 
+    private List<Job> filterByTime(List<Job> jobs, Integer timeToFilter) {
+        if (!Objects.isNull(timeToFilter))
+            return jobs.stream().filter(e -> e.getTime().toMinutes() <= timeToFilter).collect(Collectors.toList());
+        return jobs;
+    }
 
-    private String makeUrl(MomentFilterEnum moment) {
+    private String makeUrl(MomentFilterEnum moment, String location) {
         try {
             String filter = loadFilter();
-            String params = "?f_WT=2&geoId=106057199&keywords="
+            String params = "?f_WT=2&keywords="
                     .concat(filter)
-                    .concat("&location=Brasil&refresh=true");
+                    .concat("&location=")
+                    .concat(location)
+                    .concat("&refresh=true");
             if (!moment.equals(MomentFilterEnum.ANY))
                 params = params.concat("&f_TPR=").concat(moment.getId());
-
             return BASE_URL.concat(params);
         } catch (IOException e) {
             throw new IllegalArgumentException("Ocorreu um erro ao criar URL ->", e);
