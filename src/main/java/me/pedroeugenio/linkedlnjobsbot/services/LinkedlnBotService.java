@@ -1,9 +1,12 @@
 package me.pedroeugenio.linkedlnjobsbot.services;
 
+import com.google.common.collect.Lists;
 import me.pedroeugenio.linkedlnjobsbot.enums.MomentFilterEnum;
 import me.pedroeugenio.linkedlnjobsbot.enums.SortEnum;
 import me.pedroeugenio.linkedlnjobsbot.models.Job;
 import me.pedroeugenio.linkedlnjobsbot.utils.TimeConvertUtils;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -22,6 +25,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class LinkedlnBotService {
+    private static final Logger LOGGER = LogManager.getLogger(LinkedlnBotService.class.getName());
     private final static String BASE_URL = "https://www.linkedin.com/jobs/search";
 
     private Document getPageDocument(String url) throws IOException {
@@ -42,7 +46,7 @@ public class LinkedlnBotService {
         return document.select("ul.jobs-search__results-list > li");
     }
 
-    public List<Job> getAllJobList(MomentFilterEnum moment, int timeToFilter, String location) {
+    public List<Job> getAllJobList(MomentFilterEnum moment, int timeToFilter, String location, SortEnum sort) {
         try {
             String url = makeUrl(moment, location, sort);
             Document pageDocument = getPageDocument(url);
@@ -50,8 +54,9 @@ public class LinkedlnBotService {
             List<Job> allJobs = allElementJobs.stream().map(this::parseToJob).collect(Collectors.toList());
             return filterByTime(allJobs, timeToFilter);
         } catch (IOException e) {
-            throw new IllegalArgumentException("Ocorreu um erro ao mapear a lista de jobs", e);
+            LOGGER.error(e.getMessage(), e);
         }
+        return Lists.newLinkedList();
     }
 
     private List<Job> filterByTime(List<Job> jobs, Integer timeToFilter) {
@@ -74,8 +79,9 @@ public class LinkedlnBotService {
                 params = params.concat("&f_TPR=").concat(moment.getId());
             return BASE_URL.concat(params);
         } catch (IOException e) {
-            throw new IllegalArgumentException("Ocorreu um erro ao criar URL ->", e);
+            LOGGER.error(e.getMessage(), e);
         }
+        return null;
     }
 
     private String loadFilter() throws IOException {
