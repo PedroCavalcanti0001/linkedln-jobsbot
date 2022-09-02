@@ -1,6 +1,7 @@
 package me.pedroeugenio.linkedlnjobsbot.services;
 
 import me.pedroeugenio.linkedlnjobsbot.enums.MomentFilterEnum;
+import me.pedroeugenio.linkedlnjobsbot.enums.SortEnum;
 import me.pedroeugenio.linkedlnjobsbot.models.Job;
 import me.pedroeugenio.linkedlnjobsbot.utils.TimeConvertUtils;
 import org.jsoup.Connection;
@@ -43,9 +44,8 @@ public class LinkedlnBotService {
 
     public List<Job> getAllJobList(MomentFilterEnum moment, int timeToFilter, String location) {
         try {
-            String url = makeUrl(moment, location);
-            Document pageDocument = null;
-            pageDocument = getPageDocument(url);
+            String url = makeUrl(moment, location, sort);
+            Document pageDocument = getPageDocument(url);
             Elements allElementJobs = getJobsElements(pageDocument);
             List<Job> allJobs = allElementJobs.stream().map(this::parseToJob).collect(Collectors.toList());
             return filterByTime(allJobs, timeToFilter);
@@ -60,14 +60,16 @@ public class LinkedlnBotService {
         return jobs;
     }
 
-    private String makeUrl(MomentFilterEnum moment, String location) {
+    private String makeUrl(MomentFilterEnum moment, String location, SortEnum sort) {
         try {
             String filter = loadFilter();
             String params = "?f_WT=2&keywords="
                     .concat(filter)
                     .concat("&location=")
                     .concat(location)
-                    .concat("&refresh=true");
+                    .concat("&refresh=true")
+                    .concat("&sortBy=")
+                    .concat(sort.getText());
             if (!moment.equals(MomentFilterEnum.ANY))
                 params = params.concat("&f_TPR=").concat(moment.getId());
             return BASE_URL.concat(params);
