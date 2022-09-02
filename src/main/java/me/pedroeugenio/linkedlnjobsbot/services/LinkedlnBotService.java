@@ -31,51 +31,14 @@ public class LinkedlnBotService {
         String time = item.getElementsByClass("job-search-card__listdate--new").text();
         String location = item.getElementsByClass("job-search-card__location").text();
         String company = item.getElementsByClass("base-search-card__subtitle").text();
-        return new Job(title, strTimeToDuration(time), location, link, company);
+        return new Job(title, TimeConvertUtils.strTimeToDuration(time), location, link, company);
     }
 
     private Elements getJobsElements(Document document) {
         return document.select("ul.jobs-search__results-list > li");
     }
 
-    private Duration strTimeToDuration(String str) {
-        String[] split = str.split(" ");
-        if (split.length == 3) {
-            String time = split[1];
-            String measure = split[2];
-            final String oneHour = "hora";
-            final String someHours = "horas";
-            final String oneDay = "dia";
-            final String someDays = "dias";
-            final String oneWeek = "semana";
-            final String someWeeks = "semanas";
-            final String oneMinute = "minuto";
-            final String someMinutes = "minutos";
-            int timeInt = Integer.parseInt(time);
-            switch (measure) {
-                case oneHour:
-                case someHours:
-                    return Duration.ofHours(timeInt);
-                case oneDay:
-                case someDays:
-                    final int daysToHours = timeInt * 24;
-                    return Duration.ofHours(daysToHours);
-                case oneWeek:
-                case someWeeks:
-                    final int weeksToHours = timeInt * 7 * 24;
-                    return Duration.ofHours(weeksToHours);
-                case oneMinute:
-                case someMinutes:
-                    return Duration.ofMinutes(timeInt);
-                default:
-                    throw new IllegalArgumentException("Não foi possivel converter o tempo da vaga.");
-            }
-        }
-        return Duration.ZERO;
-    }
-
-    public List<Job> getJobList(MomentFilterEnum moment) {
-        Job job = new Job();
+    public List<Job> getAllJobList(MomentFilterEnum moment, int timeToFilter, String location) {
         try {
             String url = makeUrl(moment);
             Document pageDocument = null;
