@@ -77,7 +77,13 @@ public class LinkedlnBotService {
     }
 
     private String loadFilter() throws IOException {
-        return URLEncoder.encode(new String(Files.readAllBytes(Paths.get("filtro.txt"))), StandardCharsets.UTF_8.toString());
+        File file = new File("filtro.txt");
+        if (!file.exists()) {
+            FileWriter fileWriter = new FileWriter(file.getAbsolutePath());
+            fileWriter.write("Java developer");
+            fileWriter.close();
+        }
+        return URLEncoder.encode(new String(Files.readAllBytes(Paths.get(file.getAbsolutePath()))), StandardCharsets.UTF_8.toString());
     }
 
 }
