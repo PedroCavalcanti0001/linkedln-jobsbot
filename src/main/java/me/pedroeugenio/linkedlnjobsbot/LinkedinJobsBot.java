@@ -5,6 +5,10 @@ import me.pedroeugenio.linkedlnjobsbot.models.Job;
 import me.pedroeugenio.linkedlnjobsbot.services.LinkedlnBotService;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 public class LinkedinJobsBot {
     public static final Logger LOGGER = Logger.getLogger(LinkedinJobsBot.class.getName());
@@ -14,13 +18,23 @@ public class LinkedinJobsBot {
     private static final String LOCATION = "brasil";
 
     public static void main(String[] args) {
-        LinkedlnBotService service = new LinkedlnBotService();
-        List<Job> jobList = service.getJobList(moment);
-        System.out.println("Quantidade de vagas encontradas ".concat(String.valueOf(jobList.size())));
-        for (Job job : jobList) {
-            System.out.println(job);
-            System.out.println();
-        }
+        start();
+    }
+
+    static void start() {
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                LOGGER.info("Buscando novas vagas...");
+                List<Job> jobList = LINKEDLN_BOT_SERVICE.getAllJobList(MOMENT, TIME_TO_FILTER_JOBS, LOCATION);
+                LOGGER.info("Quantidade de vagas encontradas ".concat(String.valueOf(jobList.size())));
+                for (Job job : jobList) {
+                    LOGGER.info(job.toString().concat("\n"));
+                }
+            }
+        };
+        Timer timer = new Timer("MyTimer");
+        timer.scheduleAtFixedRate(timerTask, 30, TimeUnit.MINUTES.toMillis(1));
     }
 
 }
