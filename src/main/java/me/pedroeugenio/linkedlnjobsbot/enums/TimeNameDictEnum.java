@@ -4,7 +4,7 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.Optional;
 
-public enum TimeNameDict {
+public enum TimeNameDictEnum {
     ONE_HOUR("hora", 60L),
     SOME_HOURS("horas", 60L),
     ONE_DAY("dia", 60*24L),
@@ -16,7 +16,7 @@ public enum TimeNameDict {
 
     final Long multiplier;
     final String text;
-    TimeNameDict(String text, Long multiplier){
+    TimeNameDictEnum(String text, Long multiplier){
         this.text = text;
         this.multiplier = multiplier;
     }
@@ -29,7 +29,7 @@ public enum TimeNameDict {
         return Duration.ofMinutes(this.multiplier*time);
     }
 
-    public static Optional<TimeNameDict> findByText(String text){
-        return Arrays.stream(TimeNameDict.values()).filter(e -> e.text.equals(text)).findFirst();
+    public static Optional<TimeNameDictEnum> findByText(String text){
+        return Arrays.stream(TimeNameDictEnum.values()).filter(e -> e.text.equals(text)).findFirst();
     }
 }
