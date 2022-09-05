@@ -3,9 +3,11 @@ package me.pedroeugenio.linkedlnjobsbot.utils;
 import me.pedroeugenio.linkedlnjobsbot.enums.TimeNameDictEnum;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
-public class TimeConvertUtils {
+public class TimeUtils {
 
     public static Duration strTimeToDuration(String str) {
         String[] split = str.split(" ");
@@ -17,5 +19,9 @@ public class TimeConvertUtils {
                 return parsedMeasure.get().getDuration(Integer.parseInt(time));
         }
         return Duration.ZERO;
+    }
+
+    public static String formattedTime(LocalDateTime localDateTime){
+        return localDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
     }
 }
