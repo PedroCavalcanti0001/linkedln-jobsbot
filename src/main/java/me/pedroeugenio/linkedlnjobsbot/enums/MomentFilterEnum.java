@@ -1,5 +1,8 @@
 package me.pedroeugenio.linkedlnjobsbot.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum MomentFilterEnum {
     ANY(""),
     DAY("r86400"),
@@ -10,9 +13,5 @@ public enum MomentFilterEnum {
 
     MomentFilterEnum(String filterId) {
         this.filterId = filterId;
-    }
-
-    public String getFilterId() {
-        return filterId;
     }
 }

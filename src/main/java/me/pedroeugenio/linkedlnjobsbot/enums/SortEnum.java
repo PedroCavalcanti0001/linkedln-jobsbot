@@ -1,5 +1,8 @@
 package me.pedroeugenio.linkedlnjobsbot.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum SortEnum {
     RELEVANCE("R"),
     TIME("DD");
@@ -8,9 +11,5 @@ public enum SortEnum {
 
     SortEnum(String text){
         this.text = text;
-    }
-
-    public String getText() {
-        return text;
     }
 }
