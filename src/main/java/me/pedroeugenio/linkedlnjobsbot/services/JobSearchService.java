@@ -17,18 +17,18 @@ import java.util.concurrent.TimeUnit;
 
 public class JobSearchService {
     private static final Logger LOGGER = LogManager.getLogger(JobSearchService.class.getName());
-    private static final TelegramBot telegramBot = new TelegramBot();
-    private static final JobsSearch jobsSearch = new JobsSearch();
+    private static final TelegramBot TELEGRAM_BOT = new TelegramBot();
+    private static final JobsSearch JOBS_SEARCH = new JobsSearch();
 
     public static void start() {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
                 LOGGER.info("Buscando novas vagas...");
-                List<Job> jobList = jobsSearch.getAllJobList();
+                List<Job> jobList = JOBS_SEARCH.getAllJobList();
                 LOGGER.info("Quantidade de vagas encontradas ".concat(String.valueOf(jobList.size())));
                 if (!jobList.isEmpty())
-                    telegramBot.sendJobsMessage(jobList);
+                    TELEGRAM_BOT.sendJobsMessage(jobList);
                 LOGGER.info("Nova busca será realizada as "
                         .concat(TimeUtils.formattedTime(LocalDateTime.now().plus(AppConfig.load().getInterval(), ChronoUnit.MINUTES))));
             }
