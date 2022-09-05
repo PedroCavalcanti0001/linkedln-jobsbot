@@ -11,6 +11,7 @@ import java.time.Duration;
 @NoArgsConstructor
 public class Job {
     private String title;
+    private String strTime;
     private Duration time;
     private String location;
     private String link;

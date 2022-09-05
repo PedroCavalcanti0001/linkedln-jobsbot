@@ -39,7 +39,7 @@ public class LinkedlnBotService {
         String time = item.getElementsByClass("job-search-card__listdate--new").text();
         String location = item.getElementsByClass("job-search-card__location").text();
         String company = item.getElementsByClass("base-search-card__subtitle").text();
-        return new Job(title, TimeConvertUtils.strTimeToDuration(time), location, link, company);
+        return new Job(title, TimeConvertUtils.strTimeToDuration(time), location, link, company, time);
     }
 
     private Elements getJobsElements(Document document) {
