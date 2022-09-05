@@ -2,7 +2,7 @@ package me.pedroeugenio.linkedlnjobsbot.scraper;
 
 import me.pedroeugenio.linkedlnjobsbot.enums.MomentFilterEnum;
 import me.pedroeugenio.linkedlnjobsbot.models.Job;
-import me.pedroeugenio.linkedlnjobsbot.utils.TimeConvertUtils;
+import me.pedroeugenio.linkedlnjobsbot.utils.TimeUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -10,10 +10,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.net.URLDecoder;
+import java.net.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -22,11 +19,12 @@ import java.util.stream.Collectors;
 public class JobsSearch {
     private Optional<Document> getPageDocument(String url) {
         try {
-            Connection.Response connection = Jsoup.connect(url)
+            Connection.Response response = Jsoup.connect(url)
                     .userAgent(JobsConstants.USER_AGENT)
                     .method(Connection.Method.GET)
-                    .headers(JobsConstants.HEADERS).execute();
-            return Optional.of(connection.parse());
+                    .headers(JobsConstants.HEADERS)
+                    .execute();
+            return Optional.of(response.parse());
         } catch (IOException e) {
             JobsConstants.LOGGER.error("Ocorreu um erro ao tentar se conectar ao linkedln ->", e);
         }
@@ -39,7 +37,7 @@ public class JobsSearch {
         String time = item.getElementsByClass("job-search-card__listdate--new").text();
         String location = item.getElementsByClass("job-search-card__location").text();
         String company = item.getElementsByClass("base-search-card__subtitle").text();
-        return new Job(title, TimeConvertUtils.strTimeToDuration(time), location, link, company, time);
+        return new Job(title, TimeUtils.strTimeToDuration(time), location, link, company, time);
     }
 
     private Elements getJobsElements(Document document) {
