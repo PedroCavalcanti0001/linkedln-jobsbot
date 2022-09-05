@@ -28,6 +28,6 @@ public class JobSearchService {
             }
         };
         Timer timer = new Timer("linkedlnjobsbot-timer");
-        timer.scheduleAtFixedRate(timerTask, 0, TimeUnit.MINUTES.toMillis(5));
+        timer.scheduleAtFixedRate(timerTask, 0, TimeUnit.MINUTES.toMillis(AppConfig.load().getInterval()));
     }
 }

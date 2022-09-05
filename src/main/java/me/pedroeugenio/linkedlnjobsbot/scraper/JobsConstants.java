@@ -1,5 +1,6 @@
 package me.pedroeugenio.linkedlnjobsbot.scraper;
 
+import me.pedroeugenio.linkedlnjobsbot.config.AppConfig;
 import me.pedroeugenio.linkedlnjobsbot.enums.MomentFilterEnum;
 import me.pedroeugenio.linkedlnjobsbot.enums.SortEnum;
 import org.apache.log4j.LogManager;
@@ -28,7 +29,7 @@ class JobsConstants {
     }};
     protected final static String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36 Edg/104.0.1293.70";
     protected static final String LOCATION = "brasil";
-    protected static final SortEnum SORT = SortEnum.TIME;
+    protected static final SortEnum SORT = SortEnum.valueOf(AppConfig.load().getOrder().toUpperCase());
     protected static final MomentFilterEnum MOMENT = MomentFilterEnum.DAY;
-    protected static final Integer TIME_TO_FILTER_JOBS = 60;
+    protected static final Integer TIME_TO_FILTER_JOBS = AppConfig.load().getInterval();
 }
