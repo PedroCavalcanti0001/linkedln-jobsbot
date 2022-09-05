@@ -46,6 +46,12 @@
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
 	<dependencies>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -72,6 +78,11 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.PedroCavalcanti0001</groupId>
+			<artifactId>encurtador-url</artifactId>
+			<version>v1.2</version>
 		</dependency>
 	</dependencies>
 </project>

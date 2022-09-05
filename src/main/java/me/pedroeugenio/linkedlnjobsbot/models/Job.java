@@ -1,13 +1,13 @@
 package me.pedroeugenio.linkedlnjobsbot.models;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import me.pedroeugenio.encurtadorurl.UrlShortner;
 
+import java.io.IOException;
 import java.time.Duration;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Job {
     private String title;
@@ -15,6 +15,21 @@ public class Job {
     private String location;
     private String link;
     private String company;
+    private String shortLink;
+
+
+    public Job(String title, Duration time, String location, String link, String company, String strTime) {
+        this.title = title;
+        this.time = time;
+        this.location = location;
+        this.link = link;
+        this.strTime = strTime;
+        this.company = company;
+        try {
+            this.shortLink = UrlShortner.get(this.link);
+        } catch (IOException ignored) {
+        }
+    }
 
     @Override
     public String toString() {
@@ -24,6 +39,7 @@ public class Job {
                 ", location='" + location + '\'' +
                 ", link='" + link + '\'' +
                 ", company='" + company + '\'' +
+                ", shortUrl='" + shortLink + '\'' +
                 '}';
     }
 }
