@@ -10,4 +10,6 @@ import lombok.NoArgsConstructor;
 public class Properties {
     Integer interval = 60;
     String order = "TIME";
+    String botToken;
+    Long botChannel;
 }
