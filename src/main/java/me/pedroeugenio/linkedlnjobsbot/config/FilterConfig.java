@@ -5,10 +5,6 @@ import me.pedroeugenio.linkedlnjobsbot.models.JobsFilter;
 public class FilterConfig extends AbstractConfig<JobsFilter> {
     private static final JobsFilter JOBS_FILTER = new FilterConfig().load();
 
-    protected FilterConfig() {
-        super(new JobsFilter());
-    }
-
     @Override
     String getFilename() {
         return "filtro.yml";
