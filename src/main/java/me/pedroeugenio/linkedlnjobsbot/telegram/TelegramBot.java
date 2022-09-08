@@ -42,7 +42,7 @@ public class TelegramBot {
             else
                 TelegramConstants.LOGGER.error("Houve um erro ao enviar -> ".concat(String.valueOf(response.errorCode())));
         }catch (Exception ex){
-            TelegramConstants.LOGGER.error("Houve uma excessão ao enviar ", ex);
+            TelegramConstants.LOGGER.error("Houve uma excessão ao enviar mensagem para o telegram ", ex);
         }finally {
             sb.setLength(0);
         }
