@@ -11,7 +11,7 @@ class JobsFilterConfig {
     protected static final JobsFilter JOBS_FILTER = FilterConfig.getSingleton();
 
     protected static List<Job> filterByTime(List<Job> jobs) {
-        return jobs.stream().filter(e -> e.getTime().toMinutes() <= JobsConstants.TIME_TO_FILTER_JOBS)
+        return jobs.stream().filter(e -> e.getTime().toMinutes() <= JobsConstants.PROPERTIES.getJobsInterval())
                 .collect(Collectors.toList());
     }
 }
