@@ -13,7 +13,7 @@ import java.util.Map;
 class JobsConstants {
     protected static final Properties PROPERTIES = AppConfig.getSingleton();
     protected static final Logger LOGGER = LogManager.getLogger(JobsSearch.class.getName());
-    protected final static String BASE_URL = "https://www.linkedin.com/jobs/search/?currentJobId=1";
+    protected final static String BASE_URL = "http://www.linkedin.com/jobs/search/?currentJobId=1";
     protected final static Map<String, String> HEADERS = new HashMap<String, String>() {{
         put("accept-language", "pt-BR,pt;q=0.9,en;q=0.8,en-GB;q=0.7,en-US;q=0.6");
         put("accept-encoding", "gzip, deflate, br");
