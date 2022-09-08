@@ -7,7 +7,7 @@ public enum MomentFilterEnum {
     ANY(""),
     DAY("r86400"),
     WEEK("r604800"),
-    MONTH("r2592000");
+    MONTHLY("r2592000");
 
     private final String filterId;
 
