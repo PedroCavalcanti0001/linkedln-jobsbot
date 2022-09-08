@@ -10,7 +10,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.net.*;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.net.URLDecoder;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -62,7 +65,7 @@ public class JobsSearch {
             String params = "";
             if (!momentFilterEnum.equals(MomentFilterEnum.ANY))
                 params = params.concat("&f_TPR=").concat(momentFilterEnum.getFilterId());
-            params = params.concat("&f_WT=2&keywords=").concat(filter).concat("&location=").concat(JobsConstants.LOCATION)
+            params = params.concat("&f_WT=2&keywords=").concat(filter).concat("&location=").concat(JobsConstants.PROPERTIES.getLocation())
                     .concat("&refresh=true").concat("&sortBy=").concat(JobsConstants.SORT.getText());
             String urlStr = JobsConstants.BASE_URL.concat(params);
             String decodedURL = URLDecoder.decode(urlStr, "UTF-8");

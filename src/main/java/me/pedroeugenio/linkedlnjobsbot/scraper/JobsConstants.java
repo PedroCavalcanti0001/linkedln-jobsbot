@@ -30,7 +30,6 @@ class JobsConstants {
         put("upgrade-insecure-requests", "1");
     }};
     protected final static String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36 Edg/104.0.1293.70";
-    protected static final String LOCATION = PROPERTIES.getLocation();
     protected static final SortEnum SORT = SortEnum.valueOf(PROPERTIES.getOrder().toUpperCase());
     protected static final MomentFilterEnum MOMENT = MomentFilterEnum.DAY;
     protected static final Integer TIME_TO_FILTER_JOBS = PROPERTIES.getInterval();
