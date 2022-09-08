@@ -1,0 +1,15 @@
+start:
+  - "🔎 Vagas encontradas ({quantidadeVagas}):"
+end:
+  - ""
+  - ""
+  - "📤 Uma nova busca será realizada as {tempoNovaBusca}"
+
+jobText:
+  - ""
+  - "💻 Vaga: {vaga}"
+  - "🏦 Empresa: {empresa}"
+  - "⏱ Postada {strTime}"
+  - "📌 Localização: {loc}"
+  - "👉 Link: {link}"
+  - ""
