@@ -1,0 +1,9 @@
+#Corresponde ao tempo em minutos ao qual o bot irá rodar.
+interval: 180
+#Ordem de exibição
+#Pode ser por TIME ou RELEVANCE
+order: TIME
+#Token do bot do discord
+botToken: "BOT-TOKEN-AQUI"
+#Canal onde o bot irá mandar as mensagens
+botChannel: -603392344
