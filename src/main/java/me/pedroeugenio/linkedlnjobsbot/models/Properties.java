@@ -1,6 +1,5 @@
 package me.pedroeugenio.linkedlnjobsbot.models;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.pedroeugenio.linkedlnjobsbot.enums.MomentFilterEnum;
@@ -15,4 +14,5 @@ public class Properties {
     Long botChannel;
     String location;
     MomentFilterEnum moment;
+    Long geoId;
 }

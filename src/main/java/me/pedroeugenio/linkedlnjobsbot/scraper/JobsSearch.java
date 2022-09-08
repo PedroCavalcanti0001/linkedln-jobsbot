@@ -65,8 +65,14 @@ public class JobsSearch {
             String params = "";
             if (!momentFilterEnum.equals(MomentFilterEnum.ANY))
                 params = params.concat("&f_TPR=").concat(momentFilterEnum.getFilterId());
-            params = params.concat("&f_WT=2&keywords=").concat(filter).concat("&location=").concat(JobsConstants.PROPERTIES.getLocation())
-                    .concat("&refresh=true").concat("&sortBy=").concat(JobsConstants.SORT.getText());
+            params = params
+                    .concat("&f_WT=2&keywords=").concat(filter)
+                    .concat("&location=").concat(JobsConstants.PROPERTIES.getLocation())
+                    .concat("&refresh=true")
+                    .concat("&sortBy=").concat(JobsConstants.SORT.getText())
+                    .concat("&geoId=").concat(String.valueOf(JobsConstants.PROPERTIES.getGeoId()))
+                    .concat("&pageNum=0")
+                    .concat("&position=1");
             String urlStr = JobsConstants.BASE_URL.concat(params);
             String decodedURL = URLDecoder.decode(urlStr, "UTF-8");
             URL url = new URL(decodedURL);
