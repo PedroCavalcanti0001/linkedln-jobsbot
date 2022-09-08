@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Properties {
-    Integer interval = 60;
-    String order = "TIME";
+    Integer interval;
+    String order;
     String botToken;
     Long botChannel;
 }
