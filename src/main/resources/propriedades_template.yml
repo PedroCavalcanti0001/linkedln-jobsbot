@@ -10,3 +10,6 @@ botToken: "BOT-TOKEN-AQUI"
 botChannel: -603392344
 #Local onde as vagas serão buscadas
 location: "brasil"
+#Intervalo para passar como filtro na requisição para o linkedln
+# Pode ser DAY, WEEK ou MONTH
+moment: DAY

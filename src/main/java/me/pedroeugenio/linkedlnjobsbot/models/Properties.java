@@ -3,9 +3,9 @@ package me.pedroeugenio.linkedlnjobsbot.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import me.pedroeugenio.linkedlnjobsbot.enums.MomentFilterEnum;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Properties {
     Integer taskInterval;
@@ -14,4 +14,5 @@ public class Properties {
     String botToken;
     Long botChannel;
     String location;
+    MomentFilterEnum moment;
 }

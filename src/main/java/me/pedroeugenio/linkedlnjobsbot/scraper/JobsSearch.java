@@ -61,7 +61,7 @@ public class JobsSearch {
     private String makeUrl() {
         try {
             String filter = JobsFilterConfig.JOBS_FILTER.keywordsAsStr();
-            MomentFilterEnum momentFilterEnum = JobsConstants.MOMENT;
+            MomentFilterEnum momentFilterEnum = JobsConstants.PROPERTIES.getMoment();
             String params = "";
             if (!momentFilterEnum.equals(MomentFilterEnum.ANY))
                 params = params.concat("&f_TPR=").concat(momentFilterEnum.getFilterId());
