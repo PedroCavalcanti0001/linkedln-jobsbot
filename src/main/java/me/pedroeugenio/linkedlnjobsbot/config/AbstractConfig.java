@@ -35,10 +35,8 @@ abstract class AbstractConfig<T> {
         File file = new File(getFilename());
         T configuration = null;
         try {
-            if (!file.exists()) {
-                String join = joinConfigFile();
-                newFile(file, join);
-            }
+            if (!file.exists())
+                newFile(file, joinConfigFile());
             InputStream inputStream = new FileInputStream(file);
             Class<? extends T> clazz = (Class<? extends T>) properties.getClass();
             configuration = yml.loadAs(inputStream, clazz);
