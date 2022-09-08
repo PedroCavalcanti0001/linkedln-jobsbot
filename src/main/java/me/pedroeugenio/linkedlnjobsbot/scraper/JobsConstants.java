@@ -3,6 +3,7 @@ package me.pedroeugenio.linkedlnjobsbot.scraper;
 import me.pedroeugenio.linkedlnjobsbot.config.AppConfig;
 import me.pedroeugenio.linkedlnjobsbot.enums.MomentFilterEnum;
 import me.pedroeugenio.linkedlnjobsbot.enums.SortEnum;
+import me.pedroeugenio.linkedlnjobsbot.models.Properties;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -10,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 class JobsConstants {
+    protected static final Properties PROPERTIES = AppConfig.getSingleton();
     protected static final Logger LOGGER = LogManager.getLogger(JobsSearch.class.getName());
     protected final static String BASE_URL = "https://www.linkedin.com/jobs/search/?currentJobId=1";
     protected final static Map<String, String> HEADERS = new HashMap<String, String>() {{
@@ -29,7 +31,7 @@ class JobsConstants {
     }};
     protected final static String USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36 Edg/104.0.1293.70";
     protected static final String LOCATION = "brasil";
-    protected static final SortEnum SORT = SortEnum.valueOf(AppConfig.load().getOrder().toUpperCase());
+    protected static final SortEnum SORT = SortEnum.valueOf(PROPERTIES.getOrder().toUpperCase());
     protected static final MomentFilterEnum MOMENT = MomentFilterEnum.DAY;
-    protected static final Integer TIME_TO_FILTER_JOBS = AppConfig.load().getInterval();
+    protected static final Integer TIME_TO_FILTER_JOBS = PROPERTIES.getInterval();
 }

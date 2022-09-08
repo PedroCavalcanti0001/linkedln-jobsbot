@@ -50,14 +50,14 @@ public class JobsSearch {
         if(pageDocument.isPresent()) {
             Elements allElementJobs = getJobsElements(pageDocument.get());
             List<Job> allJobs = allElementJobs.stream().map(this::parseToJob).collect(Collectors.toList());
-            return JobsFilter.filterByTime(allJobs);
+            return JobsFilterConfig.filterByTime(allJobs);
         }
         return Collections.emptyList();
     }
 
     private String makeUrl() {
         try {
-            String filter = JobsFilter.loadFilterFile();
+            String filter = JobsFilterConfig.JOBS_FILTER.keywordsAsStr();
             MomentFilterEnum momentFilterEnum = JobsConstants.MOMENT;
             String params = "";
             if (!momentFilterEnum.equals(MomentFilterEnum.ANY))
