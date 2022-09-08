@@ -60,7 +60,7 @@ public class JobsSearch {
 
     private String makeUrl() {
         try {
-            String filter = JobsFilterConfig.JOBS_FILTER.keywordsAsStr();
+            String filter = JobsFilterConfig.JOBS_FILTER.keywordsAsStr().replace("'", "\"");
             MomentFilterEnum momentFilterEnum = JobsConstants.PROPERTIES.getMoment();
             String params = "";
             if (!momentFilterEnum.equals(MomentFilterEnum.ANY))
