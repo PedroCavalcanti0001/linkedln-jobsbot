@@ -2,6 +2,7 @@ package me.pedroeugenio.linkedlnjobsbot.services;
 
 import me.pedroeugenio.linkedlnjobsbot.config.AppConfig;
 import me.pedroeugenio.linkedlnjobsbot.models.Job;
+import me.pedroeugenio.linkedlnjobsbot.models.Properties;
 import me.pedroeugenio.linkedlnjobsbot.scraper.JobsSearch;
 import me.pedroeugenio.linkedlnjobsbot.telegram.TelegramBot;
 import me.pedroeugenio.linkedlnjobsbot.utils.TimeUtils;
@@ -17,8 +18,9 @@ import java.util.concurrent.TimeUnit;
 
 public class JobSearchService {
     private static final Logger LOGGER = LogManager.getLogger(JobSearchService.class.getName());
-    private static final TelegramBot TELEGRAM_BOT = new TelegramBot();
     private static final JobsSearch JOBS_SEARCH = new JobsSearch();
+    private static final Properties PROPERTIES = AppConfig.getSingleton();
+    private static final TelegramBot TELEGRAM_BOT = new TelegramBot(PROPERTIES);
 
     public static void start() {
         TimerTask timerTask = new TimerTask() {
@@ -30,10 +32,10 @@ public class JobSearchService {
                 if (!jobList.isEmpty())
                     TELEGRAM_BOT.sendJobsMessage(jobList);
                 LOGGER.info("Nova busca será realizada as "
-                        .concat(TimeUtils.formattedTime(LocalDateTime.now().plus(AppConfig.load().getInterval(), ChronoUnit.MINUTES))));
+                        .concat(TimeUtils.formattedTime(LocalDateTime.now().plus(PROPERTIES.getInterval(), ChronoUnit.MINUTES))));
             }
         };
         Timer timer = new Timer("linkedlnjobsbot-timer");
-        timer.scheduleAtFixedRate(timerTask, 0, TimeUnit.MINUTES.toMillis(AppConfig.load().getInterval()));
+        timer.scheduleAtFixedRate(timerTask, 0, TimeUnit.MINUTES.toMillis(PROPERTIES.getInterval()));
     }
 }
