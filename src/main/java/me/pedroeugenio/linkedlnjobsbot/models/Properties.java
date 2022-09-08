@@ -8,7 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Properties {
-    Integer interval;
+    Integer taskInterval;
+    Integer jobsInterval;
     String order;
     String botToken;
     Long botChannel;

@@ -32,10 +32,10 @@ public class JobSearchService {
                 if (!jobList.isEmpty())
                     TELEGRAM_BOT.sendJobsMessage(jobList);
                 LOGGER.info("Nova busca será realizada as "
-                        .concat(TimeUtils.formattedTime(LocalDateTime.now().plus(PROPERTIES.getInterval(), ChronoUnit.MINUTES))));
+                        .concat(TimeUtils.formattedTime(LocalDateTime.now().plus(PROPERTIES.getTaskInterval(), ChronoUnit.MINUTES))));
             }
         };
         Timer timer = new Timer("linkedlnjobsbot-timer");
-        timer.scheduleAtFixedRate(timerTask, 0, TimeUnit.MINUTES.toMillis(PROPERTIES.getInterval()));
+        timer.scheduleAtFixedRate(timerTask, 0, TimeUnit.MINUTES.toMillis(PROPERTIES.getTaskInterval()));
     }
 }
