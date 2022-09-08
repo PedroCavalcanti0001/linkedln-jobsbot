@@ -4,7 +4,7 @@ package me.pedroeugenio.linkedlnjobsbot.config;
 import me.pedroeugenio.linkedlnjobsbot.models.Properties;
 
 public class AppConfig extends AbstractConfig<Properties> {
-    private static final Properties properties = new AppConfig().load();
+    private static final Properties PROPERTIES = new AppConfig().load();
 
     protected AppConfig() {
         super(new Properties());
@@ -21,6 +21,6 @@ public class AppConfig extends AbstractConfig<Properties> {
     }
 
     public static Properties getSingleton() {
-        return properties;
+        return PROPERTIES;
     }
 }
