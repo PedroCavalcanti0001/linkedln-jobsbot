@@ -12,4 +12,5 @@ public class Properties {
     String order;
     String botToken;
     Long botChannel;
+    String location;
 }

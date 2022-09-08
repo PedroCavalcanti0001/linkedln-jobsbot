@@ -7,3 +7,5 @@ order: TIME
 botToken: "BOT-TOKEN-AQUI"
 #Canal onde o bot irá mandar as mensagens
 botChannel: -603392344
+#Local onde as vagas serão buscadas
+location: "brasil"
