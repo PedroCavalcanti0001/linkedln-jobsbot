@@ -50,7 +50,7 @@ public class TelegramBot {
 
     private void insertEnd() {
         this.sb.append(TelegramConstants.MESSAGES.endAsString().replace("{tempoNovaBusca}",
-                TimeUtils.formattedTime(LocalDateTime.now().plus(TelegramConstants.PROPERTIES.getJobsInterval(), ChronoUnit.MINUTES))));
+                TimeUtils.formattedTime(LocalDateTime.now().plus(TelegramConstants.PROPERTIES.getTaskInterval(), ChronoUnit.MINUTES))));
     }
 
     private void insertStart(List<Job> jobs) {
