@@ -3,7 +3,7 @@ package me.pedroeugenio.linkedlnjobsbot.config;
 import me.pedroeugenio.linkedlnjobsbot.models.NewJobsMessage;
 
 public class MessageConfig extends AbstractConfig<NewJobsMessage> {
-    private static final NewJobsMessage messages = new MessageConfig().load();
+    private static final NewJobsMessage JOBS_MESSAGE = new MessageConfig().load();
 
     protected MessageConfig() {
         super(new NewJobsMessage());
@@ -20,6 +20,6 @@ public class MessageConfig extends AbstractConfig<NewJobsMessage> {
     }
 
     public static NewJobsMessage getSingleton() {
-        return messages;
+        return JOBS_MESSAGE;
     }
 }
