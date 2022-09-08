@@ -26,10 +26,11 @@ public class TelegramBot {
                     .replace("{vaga}", job.getTitle())
                     .replace("{strTime}", job.getStrTime())
                     .replace("{loc}", job.getLocation())
-                    .replace("{tempoNovaBusca}", TimeUtils.formattedTime(LocalDateTime.now().plus(AppConfig.load().getInterval(), ChronoUnit.MINUTES)))
                     .replace("{link}", job.getShortLink());
             stringBuilder.append(template);
         }
+        stringBuilder.append("\uD83D\uDCE4 Uma nova busca será realizada as "
+                .concat(TimeUtils.formattedTime(LocalDateTime.now().plus(AppConfig.load().getInterval(), ChronoUnit.MINUTES))));
         return stringBuilder;
     }
 
