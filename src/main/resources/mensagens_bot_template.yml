@@ -1,5 +1,6 @@
 start:
   - "🔎 Vagas encontradas ({quantidadeVagas}):"
+  - ""
 end:
   - ""
   - ""
