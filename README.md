@@ -17,9 +17,10 @@ A principal motivação além do aperfeiçoamento das tecnicas utilizadas, foi a
 `filtros.yml`
 ```
 keywords:
-  - "Java Developer"
-  - "NOT 'Fullstack'"
-  - "AND 'backend'"
+  - "('JAVA' OR 'java' OR 'Java')"
+  - "NOT ('senior' OR 'sr' OR 'Senior' OR 'sênior')"
+  - "NOT ('FULLSTACK' OR 'fullstack' OR 'FULL STACK')"
+  - "NOT 'Java script'"
 ```
 
 ### Propriedades
