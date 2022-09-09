@@ -1,7 +1,12 @@
 
 # Linkedln-jobsbot
 
-Aplicação que busca novas vagas no Linkedln baseadas em um filtro pré-definido e envia via telegram. O mapeamento das novas vagas é feito através de web-scrapping.
+Aplicação que busca novas vagas (a cada x minutos) no Linkedln baseadas em um filtro pré-definido e envia via telegram. O mapeamento das novas vagas é feito através de web-scrapping.
+
+
+### Motivação
+
+A principal motivação além do aperfeiçoamento das tecnicas utilizadas, foi a necessidade de automatizar a busca por novas vagas, visto que não é nada pratico ficar buscando vagas o dia inteiro, então o bot veio como um facilitador, ele implementa os filtros que eu faria manualmente e me entrega as vagas da maneira como eu gostaria de as recebê-las.
 
 ## Configurações
 
@@ -45,7 +50,7 @@ geoId: 106057199
 
 ### Mensagens
 
-Através do arquivo mensagens_bot.yml é possivel customizar as mensagens exibilidas no telegram. Assim como os outros arquivos, esse também é gerado após iniciliar o bot pela primeira vez.
+Através do arquivo mensagens_bot.yml é possivel customizar as mensagens exibilidas no telegram. Assim como os outros arquivos, esse também é gerado após iniciar o bot pela primeira vez.
 
 `mensagens_bot.yml`
 ```
@@ -77,6 +82,7 @@ Use o git para clonar o repositorio
 
 ```bash
 git clone https://github.com/PedroCavalcanti0001/linkedln-jobsbot.git
+```
 ## Gerar JAR
 
 Use o seguinte comando para gerar o arquivo que usaremos para iniciar a aplicação. Após executar o comando o jar `ficticiusclean-0.0.1-SNAPSHOT.jar` será criado.
@@ -85,12 +91,15 @@ Use o seguinte comando para gerar o arquivo que usaremos para iniciar a aplicaç
 mvn package
 ```
 
+
+
 ## Iniciar BOT
 
 O JAR criado anteriormente está na pasta /target dentro do diretório raiz do projeto. Acesse a pasta 
 e execute o seguinte comando.
 
 * Após a primeira inicialização é necessário realizar as configurações básicas, como token do bot e chat.
+
 ```bash
 java -jar linkedln-jobsbot-0.0.1-SNAPSHOT.jar
 ```
