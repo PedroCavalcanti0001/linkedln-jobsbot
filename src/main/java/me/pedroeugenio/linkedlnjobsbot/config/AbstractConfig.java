@@ -1,25 +1,21 @@
 package me.pedroeugenio.linkedlnjobsbot.config;
 
 import me.pedroeugenio.linkedlnjobsbot.utils.FileUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.Constructor;
 
 import java.io.*;
 import java.lang.reflect.ParameterizedType;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.util.List;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("unchecked")
 abstract class AbstractConfig<T> {
     protected static final Logger LOGGER = LogManager.getLogger(AbstractConfig.class.getName());
     private final Yaml yml;
-    private final URL templateContent;
 
     protected AbstractConfig() {
         this.yml = new Yaml(new Constructor(getConfigurationClazz()));
@@ -51,13 +47,11 @@ abstract class AbstractConfig<T> {
         FileUtils.newFile(file.getAbsolutePath(), content);
     }
 
-    private File getFileFromTemplateURI() throws URISyntaxException {
-        return new File(templateContent.toURI());
-    }
-
     private String joinConfigFile() throws URISyntaxException, IOException {
-        List<String> strings = Files.readAllLines(Objects.requireNonNull(getFileFromTemplateURI()).toPath());
-        return StringUtils.join(strings, "\n");
+        InputStream resourceAsStream = AbstractConfig.class.getClassLoader().getResourceAsStream(getTemplateName());
+        BufferedReader reader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(resourceAsStream),
+                StandardCharsets.UTF_8));
+        return reader.lines().collect(Collectors.joining("\n"));
     }
 
     private Class<T> getConfigurationClazz(){
