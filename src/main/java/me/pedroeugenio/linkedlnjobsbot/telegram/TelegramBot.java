@@ -23,7 +23,7 @@ public class TelegramBot {
         for (Job job : jobs) {
             String template = TelegramConstants.MESSAGES.jobTextAsString().replace("{empresa}", job.getCompany())
                     .replace("{vaga}", job.getTitle())
-                    .replace("{strTime}", job.getStrTime())
+                    .replace("{strTime}", job.getStrTime().toLowerCase())
                     .replace("{loc}", job.getLocation())
                     .replace("{link}", job.getShortLink());
             sb.append(template);
