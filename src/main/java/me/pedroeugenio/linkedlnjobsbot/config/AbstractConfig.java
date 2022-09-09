@@ -60,7 +60,7 @@ abstract class AbstractConfig<T> {
         return StringUtils.join(strings, "\n");
     }
 
-    Class<T> getConfigurationClazz(){
+    private Class<T> getConfigurationClazz(){
         return (Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass())
                 .getActualTypeArguments()[0];
     }
