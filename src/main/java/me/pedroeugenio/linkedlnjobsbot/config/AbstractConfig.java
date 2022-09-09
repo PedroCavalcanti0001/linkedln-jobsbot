@@ -18,8 +18,7 @@ abstract class AbstractConfig<T> {
     private final Yaml yml;
 
     protected AbstractConfig() {
-        this.yml = new Yaml(new Constructor(getConfigurationClazz()));
-        this.templateContent = AbstractConfig.class.getClassLoader().getResource(getTemplateName());
+        this.yml = new Yaml();
     }
 
     abstract String getFilename();
