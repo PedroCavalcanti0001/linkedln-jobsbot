@@ -14,4 +14,5 @@ location: "brasil"
 #Intervalo para passar como filtro na requisição para o linkedln
 # Pode ser DAY, WEEK ou MONTH
 moment: DAY
+#Define o geoId que é passado como parametro na URL da requisição para o linkedln
 geoId: 106057199
