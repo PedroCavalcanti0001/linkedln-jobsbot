@@ -16,4 +16,5 @@ public class Properties {
     MomentFilterEnum moment;
     Long geoId;
     Boolean allowPromoted;
+    Integer removeJobFromDbTime;
 }

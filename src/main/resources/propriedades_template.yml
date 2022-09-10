@@ -1,7 +1,7 @@
 #Corresponde ao tempo em minutos ao qual o bot irá rodar.
-taskInterval: 10
+taskInterval: 60
 #Corresponde ao intervalo em minutos ao qual o bot irá filtrar a busca.
-jobsInterval: 180
+jobsInterval: 60
 #Ordem de exibição
 #Pode ser por TIME ou RELEVANCE
 order: TIME
@@ -18,3 +18,5 @@ moment: DAY
 geoId: 106057199
 #Indica se o bot irá mostrar vagas promovidas ou não
 allowPromoted: false
+tempo em minutos para remover vagas do cache
+removeJobFromDbTime: 120
