@@ -1,9 +1,12 @@
 package me.pedroeugenio.linkedlnjobsbot.services;
 
+import com.google.common.collect.Lists;
 import me.pedroeugenio.linkedlnjobsbot.config.AppConfig;
+import me.pedroeugenio.linkedlnjobsbot.exceptions.JobAlreadySubmittedException;
 import me.pedroeugenio.linkedlnjobsbot.models.Job;
 import me.pedroeugenio.linkedlnjobsbot.models.Properties;
 import me.pedroeugenio.linkedlnjobsbot.scraper.JobsSearch;
+import me.pedroeugenio.linkedlnjobsbot.tasks.JobControlTask;
 import me.pedroeugenio.linkedlnjobsbot.telegram.TelegramBot;
 import me.pedroeugenio.linkedlnjobsbot.utils.TimeUtils;
 import org.apache.log4j.LogManager;
@@ -21,6 +24,7 @@ public class JobSearchService {
     private static final JobsSearch JOBS_SEARCH = new JobsSearch();
     private static final Properties PROPERTIES = AppConfig.getSingleton();
     private static final TelegramBot TELEGRAM_BOT = new TelegramBot(PROPERTIES);
+    private static final JobControlTask JOB_CONTROL_TASK = new JobControlTask();
 
     public static void start() {
         TimerTask timerTask = new TimerTask() {
@@ -28,6 +32,13 @@ public class JobSearchService {
             public void run() {
                 LOGGER.info("Buscando novas vagas...");
                 List<Job> jobList = JOBS_SEARCH.getAllJobList();
+                Lists.newArrayList(jobList).forEach(e -> {
+                    try {
+                        JOB_CONTROL_TASK.verify(e);
+                    } catch (JobAlreadySubmittedException ex) {
+                        jobList.remove(e);
+                    }
+                });
                 LOGGER.info("Quantidade de vagas encontradas ".concat(String.valueOf(jobList.size())));
                 if (!jobList.isEmpty())
                     TELEGRAM_BOT.sendJobsMessage(jobList);
