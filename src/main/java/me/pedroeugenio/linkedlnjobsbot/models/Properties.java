@@ -15,4 +15,5 @@ public class Properties {
     String location;
     MomentFilterEnum moment;
     Long geoId;
+    Boolean allowPromoted;
 }
