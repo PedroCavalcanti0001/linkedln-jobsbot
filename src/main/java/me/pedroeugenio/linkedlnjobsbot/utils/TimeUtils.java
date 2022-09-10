@@ -25,6 +25,10 @@ public class TimeUtils {
         return LocalDateTime.now().minus(duration);
     }
 
+    public static Duration getTimeDifference(LocalDateTime time){
+        return Duration.between(time, LocalDateTime.now());
+    }
+
     public static String formattedTime(LocalDateTime localDateTime){
         return localDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
     }
