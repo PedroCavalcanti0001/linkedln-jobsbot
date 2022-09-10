@@ -38,7 +38,6 @@ public class JobsSearch {
         String link = item.select(".base-card__full-link").attr("href");
         if(link.isEmpty())
             link = item.getElementsByTag("a").attr("href");
-
         String title = item.getElementsByClass("base-search-card__title").text();
         String time = item.getElementsByClass("job-search-card__listdate--new").text();
         String location = item.getElementsByClass("job-search-card__location").text();
