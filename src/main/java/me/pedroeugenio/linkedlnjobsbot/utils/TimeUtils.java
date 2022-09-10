@@ -21,6 +21,10 @@ public class TimeUtils {
         return Duration.ZERO;
     }
 
+    public static LocalDateTime getTimeFromDuration(Duration duration) {
+        return LocalDateTime.now().minus(duration);
+    }
+
     public static String formattedTime(LocalDateTime localDateTime){
         return localDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
     }

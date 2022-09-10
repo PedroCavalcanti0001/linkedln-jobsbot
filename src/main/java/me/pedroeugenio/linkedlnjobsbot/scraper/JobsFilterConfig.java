@@ -17,7 +17,7 @@ class JobsFilterConfig {
     }
 
     private static List<Job> filterByTime(List<Job> jobs) {
-        return jobs.stream().filter(e -> e.getTime().toMinutes() <= JobsConstants.PROPERTIES.getJobsInterval())
+        return jobs.stream().filter(e -> e.getDiffInDuration().toMinutes() <= JobsConstants.PROPERTIES.getJobsInterval())
                 .collect(Collectors.toList());
     }
 

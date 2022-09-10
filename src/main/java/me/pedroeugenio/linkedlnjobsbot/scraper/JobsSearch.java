@@ -14,6 +14,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -48,7 +50,9 @@ public class JobsSearch {
                     item.getElementsByClass("base-card").attr("data-entity-urn").replace("urn:li:jobPosting:", ""));
         } catch (Exception ignored) {
         }
-        return new Job(title, TimeUtils.strTimeToDuration(time), location, link, company, time, jobId);
+        Duration duration = TimeUtils.strTimeToDuration(time);
+        LocalDateTime localDateTime = TimeUtils.getTimeFromDuration(duration);
+        return new Job(title, localDateTime, location, link, company, time, jobId);
     }
 
     private Elements getJobsElements(Document document) {
