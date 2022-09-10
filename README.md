@@ -49,6 +49,8 @@ moment: DAY
 geoId: 106057199
 #Indica se o bot irá mostrar vagas promovidas ou não
 allowPromoted: false
+tempo em minutos para remover vagas do cache
+removeJobFromDbTime: 120
 ```
 
 ### Mensagens
