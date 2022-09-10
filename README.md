@@ -47,6 +47,8 @@ location: "brasil"
 moment: DAY
 #Define o geoId que é passado como parametro na URL da requisição para o linkedln
 geoId: 106057199
+#Indica se o bot irá mostrar vagas promovidas ou não
+allowPromoted: false
 ```
 
 ### Mensagens
