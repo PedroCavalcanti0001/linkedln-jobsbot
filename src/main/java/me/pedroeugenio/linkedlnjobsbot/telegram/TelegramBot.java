@@ -25,7 +25,10 @@ public class TelegramBot {
                     .replace("{vaga}", job.getTitle())
                     .replace("{strTime}", job.getStrTime().toLowerCase())
                     .replace("{loc}", job.getLocation())
-                    .replace("{link}", job.getShortLink());
+                    .replace("{link}",
+                            job.getJobId() != 0
+                                    ? "https://br.linkedin.com/jobs/view/".concat(String.valueOf(job.getJobId()))
+                                    : job.getShortLink());
             sb.append(template);
         }
     }

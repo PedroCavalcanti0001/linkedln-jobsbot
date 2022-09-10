@@ -17,9 +17,10 @@ public class Job {
     private String link;
     private String company;
     private String shortLink;
+    private Long jobId;
 
 
-    public Job(String title, Duration time, String location, String link, String company, String strTime) {
+    public Job(String title, Duration time, String location, String link, String company, String strTime, Long jobId) {
         this.title = title;
         this.time = time;
         this.location = location;
@@ -30,6 +31,7 @@ public class Job {
             this.shortLink = UrlShortner.get(this.link);
         } catch (IOException ignored) {
         }
+        this.jobId = jobId;
     }
 
     @Override
@@ -41,6 +43,7 @@ public class Job {
                 ", link='" + link + '\'' +
                 ", company='" + company + '\'' +
                 ", shortUrl='" + shortLink + '\'' +
+                ", jobId='" + jobId + '\'' +
                 '}';
     }
 }

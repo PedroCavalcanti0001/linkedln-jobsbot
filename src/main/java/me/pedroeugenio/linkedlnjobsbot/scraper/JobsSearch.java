@@ -36,13 +36,19 @@ public class JobsSearch {
 
     private Job parseToJob(Element item) {
         String link = item.select(".base-card__full-link").attr("href");
-        if(link.isEmpty())
+        if (link.isEmpty())
             link = item.getElementsByTag("a").attr("href");
         String title = item.getElementsByClass("base-search-card__title").text();
         String time = item.getElementsByClass("job-search-card__listdate--new").text();
         String location = item.getElementsByClass("job-search-card__location").text();
         String company = item.getElementsByClass("base-search-card__subtitle").text();
-        return new Job(title, TimeUtils.strTimeToDuration(time), location, link, company, time);
+        long jobId = 0L;
+        try {
+            jobId = Long.parseLong(
+                    item.getElementsByClass("base-card").attr("data-entity-urn").replace("urn:li:jobPosting:", ""));
+        } catch (Exception ignored) {
+        }
+        return new Job(title, TimeUtils.strTimeToDuration(time), location, link, company, time, jobId);
     }
 
     private Elements getJobsElements(Document document) {
