@@ -36,7 +36,7 @@ public class JobSearchService {
                     try {
                         JOB_CONTROL_TASK.verify(e);
                     } catch (JobAlreadySubmittedException ex) {
-                        jobList.remove(e);
+                        LOGGER.info(String.valueOf(e.getJobId()).concat(" já havia sido enviada antes."));
                     }
                 });
                 LOGGER.info("Quantidade de vagas encontradas ".concat(String.valueOf(jobList.size())));

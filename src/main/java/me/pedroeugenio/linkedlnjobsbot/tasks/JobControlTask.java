@@ -19,7 +19,6 @@ public class JobControlTask {
     public void verify(Job job) throws JobAlreadySubmittedException {
         Optional<Job> jobById = JOB_REPOSITORY.findJobById(job.getJobId());
         if (jobById.isPresent() && jobById.get().getJobId() != 0L) {
-            LOGGER.info(String.valueOf(jobById.get()).concat(" já havia sido enviada antes."));
             if (canRemove(job))
                 JOB_REPOSITORY.remove(job.getJobId());
             throw new JobAlreadySubmittedException();
