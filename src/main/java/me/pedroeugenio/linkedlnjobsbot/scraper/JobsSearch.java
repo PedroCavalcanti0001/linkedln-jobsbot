@@ -53,7 +53,7 @@ public class JobsSearch {
         if(pageDocument.isPresent()) {
             Elements allElementJobs = getJobsElements(pageDocument.get());
             List<Job> allJobs = allElementJobs.stream().map(this::parseToJob).collect(Collectors.toList());
-            return JobsFilterConfig.filterByTime(allJobs);
+            return JobsFilterConfig.performFilters(allJobs);
         }
         return Collections.emptyList();
     }
