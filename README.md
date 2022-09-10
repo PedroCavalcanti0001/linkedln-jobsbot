@@ -90,7 +90,7 @@ git clone https://github.com/PedroCavalcanti0001/linkedln-jobsbot.git
 ```
 ## Gerar JAR
 
-Use o seguinte comando para gerar o arquivo que usaremos para iniciar a aplicação. Após executar o comando o jar `linkedln-jobsbot-0.0.1-SNAPSHOT.jar` será criado.
+Use o seguinte comando para gerar o arquivo que usaremos para iniciar a aplicação. Após executar o comando, o jar `linkedln-jobsbot-0.0.1-SNAPSHOT.jar` será criado.
 
 ```bash
 mvn package
