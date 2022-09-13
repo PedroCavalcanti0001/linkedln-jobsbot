@@ -17,4 +17,5 @@ public class Properties {
     Long geoId;
     Boolean allowPromoted;
     Integer removeJobFromDbTime;
+    Boolean sendJobsNotFoundMessage;
 }

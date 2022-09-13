@@ -20,3 +20,5 @@ geoId: 106057199
 allowPromoted: false
 #tempo em minutos para remover vagas do cache
 removeJobFromDbTime: 120
+#Indica se a mensagem 'jobsNotFound' deve ser enviada ou não, quando nenhum job é encontrado.
+sendJobsNotFoundMessage: true

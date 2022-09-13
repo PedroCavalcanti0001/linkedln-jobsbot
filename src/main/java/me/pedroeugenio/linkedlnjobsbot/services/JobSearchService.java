@@ -36,7 +36,7 @@ public class JobSearchService {
                 LOGGER.info("Quantidade de vagas encontradas ".concat(String.valueOf(jobList.size())));
                 if (!jobList.isEmpty())
                     TELEGRAM_BOT.sendJobsMessage(jobList);
-                else
+                else if(PROPERTIES.getSendJobsNotFoundMessage())
                     TELEGRAM_BOT.sendJobsNotFoundMessage();
                 LOGGER.info("Nova busca será realizada as "
                         .concat(TimeUtils.formattedTime(LocalDateTime.now().plus(PROPERTIES.getTaskInterval(), ChronoUnit.MINUTES))));
