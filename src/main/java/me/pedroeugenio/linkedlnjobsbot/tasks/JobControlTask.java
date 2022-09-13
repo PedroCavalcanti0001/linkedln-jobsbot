@@ -28,7 +28,11 @@ public class JobControlTask {
     public void verify(Job job) throws JobAlreadySubmittedException {
         Optional<Job> jobById = JOB_REPOSITORY.findJobById(job.getJobId());
         if (jobById.isPresent() && jobById.get().getJobId() != 0L) {
-            LOGGER.info(String.valueOf(jobById.get()).concat(" já havia sido enviada antes."));
+            LOGGER.info(String.valueOf(jobById.get().getJobId()).concat(": ")
+                    .concat(job.getCompany())
+                    .concat(" | ")
+                    .concat(job.getTitle())
+                    .concat(" já havia sido enviada antes."));
             throw new JobAlreadySubmittedException();
         } else
             JOB_REPOSITORY.add(job);
