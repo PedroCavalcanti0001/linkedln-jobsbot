@@ -30,6 +30,6 @@ public class TimeUtils {
     }
 
     public static String formattedTime(LocalDateTime localDateTime){
-        return localDateTime.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+        return localDateTime.format(DateTimeFormatter.ofPattern("HH:mm"));
     }
 }
