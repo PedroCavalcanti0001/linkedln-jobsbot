@@ -75,6 +75,10 @@ jobText:
   - "📌 Localização: {loc}"
   - "👉 Link: {link}"
   - ""
+jobsNotFound:
+  - "⚠ Nenhum job encontrado para o filtro atual."
+  - ""
+  - "📤 Uma nova busca será realizada as {tempoNovaBusca}"
 ```
 
 ## Requisitos
