@@ -6,7 +6,7 @@ Aplicação que busca novas vagas (a cada x minutos) no Linkedln baseadas em um 
 
 ### Motivação
 
-A principal motivação além do aperfeiçoamento das tecnicas utilizadas, foi a necessidade de automatizar a busca por novas vagas, visto que não é nada pratico ficar buscando vagas o dia inteiro, então o bot veio como um facilitador, ele implementa os filtros que eu faria manualmente e me entrega as vagas da maneira como eu gostaria de as recebê-las.
+A principal motivação além do aperfeiçoamento das tecnicas utilizadas, foi a necessidade de automatizar a busca por novas vagas, visto que não é nada pratico ficar buscando vagas o dia inteiro, então o bot veio como um facilitador, ele implementa os filtros que eu faria manualmente e me entrega as vagas da maneira como eu gostaria de recebê-las.
 
 ## Configurações
 
@@ -90,7 +90,7 @@ git clone https://github.com/PedroCavalcanti0001/linkedln-jobsbot.git
 ```
 ## Gerar JAR
 
-Use o seguinte comando para gerar o arquivo que usaremos para iniciar a aplicação. Após executar o comando o jar `ficticiusclean-0.0.1-SNAPSHOT.jar` será criado.
+Use o seguinte comando para gerar o arquivo que usaremos para iniciar a aplicação. Após executar o comando, o jar `linkedln-jobsbot-0.0.1-SNAPSHOT.jar` será criado.
 
 ```bash
 mvn package
