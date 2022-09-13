@@ -1,5 +1,6 @@
 package me.pedroeugenio.linkedlnjobsbot.tasks;
 
+import com.google.common.collect.Lists;
 import me.pedroeugenio.linkedlnjobsbot.config.AppConfig;
 import me.pedroeugenio.linkedlnjobsbot.data.JobRepository;
 import me.pedroeugenio.linkedlnjobsbot.data.impl.JobRepositoryMemImpl;
@@ -10,10 +11,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.time.Duration;
-import java.util.List;
-import java.util.Optional;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class JobControlTask {
@@ -51,7 +49,7 @@ public class JobControlTask {
     }
 
     private void checkRepositoryJobList(List<Job> jobList) {
-        for (Job job : jobList) {
+        for (Job job : Lists.newArrayList(jobList)) {
             if (canRemove(job))
                 JOB_REPOSITORY.remove(job.getJobId());
         }
