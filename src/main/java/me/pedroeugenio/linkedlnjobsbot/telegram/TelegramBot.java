@@ -59,4 +59,24 @@ public class TelegramBot {
     private void insertStart(List<Job> jobs) {
         this.sb.append(TelegramConstants.MESSAGES.startAsString().replace("{quantidadeVagas}", String.valueOf(jobs.size())));
     }
+
+    public void sendJobsNotFoundMessage() {
+        try {
+            SendResponse response = TelegramConstants.BOT.execute(new SendMessage(TelegramConstants.CHAT,
+                    TelegramConstants.MESSAGES.jobsNotFoundAsString()
+                            .replace("{tempoNovaBusca}",
+                                    TimeUtils.formattedTime(LocalDateTime.now()
+                                            .plus(TelegramConstants.PROPERTIES.getTaskInterval(), ChronoUnit.MINUTES)))));
+            if (response.isOk())
+                TelegramConstants.LOGGER.info("Mensagem de vagas não encontradas, enviada.");
+            else
+                TelegramConstants.LOGGER.error("Houve um erro ao enviar a mensagem de vagas não encontradas -> "
+                        .concat(String.valueOf(response.errorCode())));
+        } catch (Exception ex) {
+            TelegramConstants.LOGGER.error("Houve uma excessão ao enviar mensagem de vagas não encontradas para o telegram ",
+                    ex);
+        } finally {
+            sb.setLength(0);
+        }
+    }
 }

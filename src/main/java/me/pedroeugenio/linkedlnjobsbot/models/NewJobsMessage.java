@@ -14,6 +14,7 @@ public class NewJobsMessage {
     private List<String> start;
     private List<String> end;
     private List<String> jobText;
+    private List<String> jobsNotFound;
 
     public String startAsString(){
         return StringUtils.join(start, "\n");
@@ -27,4 +28,7 @@ public class NewJobsMessage {
         return StringUtils.join(jobText, "\n");
     }
 
+    public String jobsNotFoundAsString(){
+        return StringUtils.join(jobsNotFound, "\n");
+    }
 }
