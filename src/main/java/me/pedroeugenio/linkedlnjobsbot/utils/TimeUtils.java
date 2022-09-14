@@ -31,6 +31,19 @@ public class TimeUtils {
         return Duration.between(time, LocalDateTime.now());
     }
 
+    public static LocalDateTime parseTimeFromInterval(String str) {
+        LocalDateTime now = LocalDateTime.now();
+        String[] split = str.split(":");
+        int hour = Integer.parseInt(split[0]);
+        int minute = Integer.parseInt(split[1]);
+        return LocalDateTime.of(now.getYear(), now.getMonth(), now.getDayOfMonth(), hour, minute);
+    }
+
+    public static Boolean isWeekend(LocalDateTime localDateTime){
+        return localDateTime.getDayOfMonth() == DayOfWeek.SATURDAY.getValue() ||
+                localDateTime.getDayOfMonth() == DayOfWeek.SUNDAY.getValue();
+    }
+
     public static String formattedTime(LocalDateTime localDateTime){
         return localDateTime.format(DateTimeFormatter.ofPattern("HH:mm"));
     }

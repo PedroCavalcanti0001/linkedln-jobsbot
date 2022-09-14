@@ -22,4 +22,19 @@ public class Properties {
     Boolean allowPromoted;
     Integer removeJobFromDbTime;
     Boolean sendJobsNotFoundMessage;
+    Boolean excludeWeekends;
+    Boolean allowTimeInterval;
+    String timeInterval;
+
+    public Boolean isInInterval(LocalDateTime localDateTime) {
+        return localDateTime.isAfter(getInterval().getLeft()) && localDateTime.isBefore(getInterval().getRight());
+    }
+
+    private Pair<LocalDateTime, LocalDateTime> getInterval() {
+        String[] split = timeInterval.split("-");
+        LocalDateTime first = TimeUtils.parseTimeFromInterval(split[0]);
+        LocalDateTime second = TimeUtils.parseTimeFromInterval(split[1]);
+        return Pair.of(first, second);
+    }
+
 }
