@@ -2,9 +2,11 @@ package me.pedroeugenio.linkedlnjobsbot.utils;
 
 import me.pedroeugenio.linkedlnjobsbot.enums.TimeNameDictEnum;
 
+import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Optional;
 
 public class TimeUtils {

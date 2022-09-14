@@ -32,6 +32,19 @@ public class JobSearchService {
             @Override
             public void run() {
                 LOGGER.info("Buscando novas vagas...");
+                Boolean allowTimeInterval = PROPERTIES.getAllowTimeInterval();
+                LocalDateTime now = LocalDateTime.now();
+                if(allowTimeInterval){
+                    LOGGER.info("Verificando se está no intervalo de tempo");
+                    if(!PROPERTIES.isInInterval(now)) {
+                        LOGGER.info("Não está dentro do intervalo de tempo");
+                        return;
+                    }
+                }
+                if(PROPERTIES.getExcludeWeekends() && TimeUtils.isWeekend(now)){
+                    LOGGER.info("execução não realizada, pois a configuração de exclusão de final de semana está ativa");
+                    return;
+                }
                 List<Job> jobList = checkJobs(JOBS_SEARCH.getAllJobList());
                 LOGGER.info("Quantidade de vagas encontradas ".concat(String.valueOf(jobList.size())));
                 if (!jobList.isEmpty())

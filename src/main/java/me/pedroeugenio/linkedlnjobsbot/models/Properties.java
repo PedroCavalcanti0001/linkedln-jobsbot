@@ -3,6 +3,10 @@ package me.pedroeugenio.linkedlnjobsbot.models;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import me.pedroeugenio.linkedlnjobsbot.enums.MomentFilterEnum;
+import me.pedroeugenio.linkedlnjobsbot.utils.TimeUtils;
+import org.apache.commons.lang3.tuple.Pair;
+
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
