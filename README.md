@@ -53,6 +53,12 @@ tempo em minutos para remover vagas do cache
 removeJobFromDbTime: 120
 #Indica se a mensagem 'jobsNotFound' deve ser enviada ou não, quando nenhum job é encontrado.
 sendJobsNotFoundMessage: true
+#Indica se o bot deve incluir finais de semana
+excludeWeekends: true
+#Indica se a configuração de intervalo de tempo será usada ou ignorada
+allowTimeInterval: true
+#Indica o intervalo de tempo no qual o bot irá funcionar
+timeInterval: "08:00-18:00"
 ```
 
 ### Mensagens
