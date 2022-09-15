@@ -57,20 +57,20 @@ public class TimeUtils {
         LocalDateTime start = interval.getLeft();
         LocalDateTime end = interval.getRight();
         LocalDateTime tomorrow = start.plusDays(1);
+        LocalDateTime nextRuntime = getNextRuntime(PROPERTIES.getTaskInterval(), localDateTime);
         if ((PROPERTIES.getExcludeWeekends() && isWeekend(tomorrow))) {
-            String time = formattedTime(getNextRuntime(start));
+            String time = formattedTime(start.withMinute(localDateTime.getMinute()));
             return "segunda as ".concat(time);
         } else {
-            LocalDateTime nextRuntime = getNextRuntime(localDateTime);
             if (PROPERTIES.getAllowTimeInterval() && nextRuntime.isAfter(end)) {
-                String time = formattedTime(getNextRuntime(start));
+                String time = formattedTime(start.withMinute(localDateTime.getMinute()));
                 return "amanhã as ".concat(time);
             }
         }
-        return "as ".concat(formattedTime(localDateTime));
+        return "as ".concat(formattedTime(nextRuntime));
     }
 
-    private static LocalDateTime getNextRuntime(LocalDateTime localDateTime) {
-        return localDateTime.plus(PROPERTIES.getTaskInterval(), ChronoUnit.MINUTES);
+    private static LocalDateTime getNextRuntime(Integer minutes, LocalDateTime localDateTime) {
+        return localDateTime.plus(minutes, ChronoUnit.MINUTES);
     }
 }
