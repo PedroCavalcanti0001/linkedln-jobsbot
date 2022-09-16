@@ -4,7 +4,7 @@ start:
 end:
   - ""
   - ""
-  - "📤 Uma nova busca será realizada as {tempoNovaBusca}"
+  - "📤 Uma nova busca será realizada {tempoNovaBusca}"
 
 jobText:
   - ""
@@ -18,4 +18,4 @@ jobText:
 jobsNotFound:
   - "⚠ Nenhum job encontrado para o filtro atual."
   - ""
-  - "📤 Uma nova busca será realizada as {tempoNovaBusca}"
+  - "📤 Uma nova busca será realizada {tempoNovaBusca}"

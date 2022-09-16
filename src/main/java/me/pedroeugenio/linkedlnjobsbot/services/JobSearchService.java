@@ -13,7 +13,6 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -55,8 +54,8 @@ public class JobSearchService {
                     TELEGRAM_BOT.sendJobsMessage(jobList);
                 else if(PROPERTIES.getSendJobsNotFoundMessage())
                     TELEGRAM_BOT.sendJobsNotFoundMessage();
-                LOGGER.info("Nova busca será realizada as "
-                        .concat(TimeUtils.formattedTime(LocalDateTime.now().plus(PROPERTIES.getTaskInterval(), ChronoUnit.MINUTES))));
+                LOGGER.info("Nova busca será realizada "
+                        .concat(TimeUtils.nextSearchStrTime(LocalDateTime.now())));
             }
 
             private List<Job> checkJobs(List<Job> jobList) {

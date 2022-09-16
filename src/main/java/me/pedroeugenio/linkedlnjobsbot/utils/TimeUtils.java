@@ -1,15 +1,19 @@
 package me.pedroeugenio.linkedlnjobsbot.utils;
 
+import me.pedroeugenio.linkedlnjobsbot.config.AppConfig;
 import me.pedroeugenio.linkedlnjobsbot.enums.TimeNameDictEnum;
+import me.pedroeugenio.linkedlnjobsbot.models.Properties;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.time.DayOfWeek;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
+import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 
 public class TimeUtils {
+    private static final Properties PROPERTIES = AppConfig.getSingleton();
 
     public static Duration strTimeToDuration(String str) {
         String[] split = str.split(" ");
@@ -44,7 +48,29 @@ public class TimeUtils {
                 localDateTime.getDayOfMonth() == DayOfWeek.SUNDAY.getValue();
     }
 
-    public static String formattedTime(LocalDateTime localDateTime){
+    public static String formattedTime(LocalDateTime localDateTime) {
         return localDateTime.format(DateTimeFormatter.ofPattern("HH:mm"));
+    }
+
+    public static String nextSearchStrTime(LocalDateTime localDateTime) {
+        Pair<LocalDateTime, LocalDateTime> interval = PROPERTIES.getInterval();
+        LocalDateTime start = interval.getLeft();
+        LocalDateTime end = interval.getRight();
+        LocalDateTime tomorrow = start.plusDays(1);
+        if ((PROPERTIES.getExcludeWeekends() && isWeekend(tomorrow))) {
+            String time = formattedTime(getNextRuntime(start));
+            return "segunda as ".concat(time);
+        } else {
+            LocalDateTime nextRuntime = getNextRuntime(localDateTime);
+            if (PROPERTIES.getAllowTimeInterval() && nextRuntime.isAfter(end)) {
+                String time = formattedTime(getNextRuntime(start));
+                return "amanhã as ".concat(time);
+            }
+        }
+        return "as ".concat(formattedTime(localDateTime));
+    }
+
+    private static LocalDateTime getNextRuntime(LocalDateTime localDateTime) {
+        return localDateTime.plus(PROPERTIES.getTaskInterval(), ChronoUnit.MINUTES);
     }
 }

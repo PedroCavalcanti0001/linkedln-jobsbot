@@ -30,7 +30,7 @@ public class Properties {
         return localDateTime.isAfter(getInterval().getLeft()) && localDateTime.isBefore(getInterval().getRight());
     }
 
-    private Pair<LocalDateTime, LocalDateTime> getInterval() {
+    public Pair<LocalDateTime, LocalDateTime> getInterval() {
         String[] split = timeInterval.split("-");
         LocalDateTime first = TimeUtils.parseTimeFromInterval(split[0]);
         LocalDateTime second = TimeUtils.parseTimeFromInterval(split[1]);
