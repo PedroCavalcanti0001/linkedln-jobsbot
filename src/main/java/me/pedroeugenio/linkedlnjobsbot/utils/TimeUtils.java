@@ -4,6 +4,7 @@ import me.pedroeugenio.linkedlnjobsbot.config.AppConfig;
 import me.pedroeugenio.linkedlnjobsbot.enums.TimeNameDictEnum;
 import me.pedroeugenio.linkedlnjobsbot.models.Properties;
 import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.DayOfWeek;
 import java.time.Duration;
@@ -54,22 +55,32 @@ public class TimeUtils {
 
     public static String nextSearchStrTime(LocalDateTime localDateTime) {
         Pair<LocalDateTime, LocalDateTime> interval = PROPERTIES.getInterval();
-        LocalDateTime start = interval.getLeft();
         LocalDateTime end = interval.getRight();
-        LocalDateTime tomorrow = start.plusDays(1);
         LocalDateTime nextRuntime = getNextRuntime(PROPERTIES.getTaskInterval(), localDateTime);
         if (nextRuntime.isAfter(end)) {
-            if ((PROPERTIES.getExcludeWeekends() && isWeekend(tomorrow))) {
-                String time = formattedTime(start.withMinute(localDateTime.getMinute()));
-                return "segunda as ".concat(time);
-            } else if (PROPERTIES.getAllowTimeInterval()) {
-                String time = formattedTime(start.withMinute(localDateTime.getMinute()));
-                return "amanhã as ".concat(time);
-            }
+            Optional<String> optional = getNextSearchStrAnotherDay(localDateTime, interval);
+            if (optional.isPresent())
+                return optional.get();
         }
         return "as ".concat(formattedTime(nextRuntime));
     }
 
+    @NotNull
+    private static Optional<String> getNextSearchStrAnotherDay(LocalDateTime localDateTime, Pair<LocalDateTime,
+            LocalDateTime> interval) {
+        LocalDateTime start = interval.getLeft();
+        LocalDateTime tomorrow = start.plusDays(1);
+        if ((PROPERTIES.getExcludeWeekends() && isWeekend(tomorrow))) {
+            String time = formattedTime(start.withMinute(localDateTime.getMinute()));
+            return Optional.of("segunda as ".concat(time));
+        } else if (PROPERTIES.getAllowTimeInterval()) {
+            String time = formattedTime(start.withMinute(localDateTime.getMinute()));
+            return Optional.of("amanhã as ".concat(time));
+        }
+        return Optional.empty();
+    }
+
+    @NotNull
     private static LocalDateTime getNextRuntime(Integer minutes, LocalDateTime localDateTime) {
         return localDateTime.plus(minutes, ChronoUnit.MINUTES);
     }
