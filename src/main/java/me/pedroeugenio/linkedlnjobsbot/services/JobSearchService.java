@@ -35,15 +35,19 @@ public class JobSearchService {
                 Boolean allowTimeInterval = PROPERTIES.getAllowTimeInterval();
                 LocalDateTime now = LocalDateTime.now();
                 if(allowTimeInterval){
-                    LOGGER.info("Verificando se está no intervalo de tempo");
+                    LOGGER.info("Verificando se está dentro do intervalo configurado");
                     if(!PROPERTIES.isInInterval(now)) {
                         LOGGER.info("Não está dentro do intervalo de tempo");
                         return;
                     }
                 }
-                if(PROPERTIES.getExcludeWeekends() && TimeUtils.isWeekend(now)){
-                    LOGGER.info("execução não realizada, pois a configuração de exclusão de final de semana está ativa");
-                    return;
+                Boolean excludeWeekends = PROPERTIES.getExcludeWeekends();
+                if(excludeWeekends) {
+                    LOGGER.info("Verificando se é final de semana");
+                    if (TimeUtils.isWeekend(now)) {
+                        LOGGER.info("execução não realizada, pois a configuração de exclusão de final de semana está ativa");
+                        return;
+                    }
                 }
                 List<Job> jobList = checkJobs(JOBS_SEARCH.getAllJobList());
                 LOGGER.info("Quantidade de vagas encontradas ".concat(String.valueOf(jobList.size())));
