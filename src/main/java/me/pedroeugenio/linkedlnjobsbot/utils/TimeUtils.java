@@ -58,11 +58,11 @@ public class TimeUtils {
         LocalDateTime end = interval.getRight();
         LocalDateTime tomorrow = start.plusDays(1);
         LocalDateTime nextRuntime = getNextRuntime(PROPERTIES.getTaskInterval(), localDateTime);
-        if ((PROPERTIES.getExcludeWeekends() && isWeekend(tomorrow))) {
-            String time = formattedTime(start.withMinute(localDateTime.getMinute()));
-            return "segunda as ".concat(time);
-        } else {
-            if (PROPERTIES.getAllowTimeInterval() && nextRuntime.isAfter(end)) {
+        if (nextRuntime.isAfter(end)) {
+            if ((PROPERTIES.getExcludeWeekends() && isWeekend(tomorrow))) {
+                String time = formattedTime(start.withMinute(localDateTime.getMinute()));
+                return "segunda as ".concat(time);
+            } else if (PROPERTIES.getAllowTimeInterval()) {
                 String time = formattedTime(start.withMinute(localDateTime.getMinute()));
                 return "amanhã as ".concat(time);
             }
