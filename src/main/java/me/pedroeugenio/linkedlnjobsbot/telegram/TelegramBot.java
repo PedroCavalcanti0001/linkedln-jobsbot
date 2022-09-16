@@ -7,7 +7,6 @@ import me.pedroeugenio.linkedlnjobsbot.models.Properties;
 import me.pedroeugenio.linkedlnjobsbot.utils.TimeUtils;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 public class TelegramBot {
@@ -52,8 +51,9 @@ public class TelegramBot {
     }
 
     private void insertEnd() {
-        this.sb.append(TelegramConstants.MESSAGES.endAsString().replace("{tempoNovaBusca}",
-                TimeUtils.formattedTime(LocalDateTime.now().plus(TelegramConstants.PROPERTIES.getTaskInterval(), ChronoUnit.MINUTES))));
+        this.sb.append(TelegramConstants.MESSAGES.endAsString()
+                .replace("{tempoNovaBusca}",
+                        TimeUtils.nextSearchStrTime(LocalDateTime.now())));
     }
 
     private void insertStart(List<Job> jobs) {
@@ -65,8 +65,7 @@ public class TelegramBot {
             SendResponse response = TelegramConstants.BOT.execute(new SendMessage(TelegramConstants.CHAT,
                     TelegramConstants.MESSAGES.jobsNotFoundAsString()
                             .replace("{tempoNovaBusca}",
-                                    TimeUtils.formattedTime(LocalDateTime.now()
-                                            .plus(TelegramConstants.PROPERTIES.getTaskInterval(), ChronoUnit.MINUTES)))));
+                                    TimeUtils.nextSearchStrTime(LocalDateTime.now()))));
             if (response.isOk())
                 TelegramConstants.LOGGER.info("Mensagem de vagas não encontradas, enviada.");
             else
