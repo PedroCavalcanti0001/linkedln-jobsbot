@@ -43,9 +43,9 @@ public class TimeUtils {
         return LocalDateTime.of(now.getYear(), now.getMonth(), now.getDayOfMonth(), hour, minute);
     }
 
-    public static Boolean isWeekend(LocalDateTime localDateTime){
-        return localDateTime.getDayOfMonth() == DayOfWeek.SATURDAY.getValue() ||
-                localDateTime.getDayOfMonth() == DayOfWeek.SUNDAY.getValue();
+    public static Boolean isWeekend(LocalDateTime localDateTime) {
+        return localDateTime.getDayOfWeek() == DayOfWeek.SATURDAY ||
+                localDateTime.getDayOfWeek() == DayOfWeek.SUNDAY;
     }
 
     public static String formattedTime(LocalDateTime localDateTime) {
