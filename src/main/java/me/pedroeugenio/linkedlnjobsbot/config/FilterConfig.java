@@ -7,7 +7,7 @@ public class FilterConfig extends AbstractConfig<JobsFilter> {
 
     @Override
     String getFilename() {
-        return "git.yml";
+        return "filtro.yml";
     }
 
     @Override
