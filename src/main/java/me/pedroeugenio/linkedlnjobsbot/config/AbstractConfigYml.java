@@ -13,17 +13,13 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @SuppressWarnings("unchecked")
-abstract class AbstractConfig<T> {
-    protected static final Logger LOGGER = LogManager.getLogger(AbstractConfig.class.getName());
+abstract class AbstractConfigYml<T> implements IConfig{
+    protected static final Logger LOGGER = LogManager.getLogger(AbstractConfigYml.class.getName());
     private final Yaml yml;
 
-    protected AbstractConfig() {
+    protected AbstractConfigYml() {
         this.yml = new Yaml();
     }
-
-    abstract String getFilename();
-
-    abstract String getTemplateName();
 
     protected T load() {
         File file = new File(getFilename());
@@ -47,7 +43,7 @@ abstract class AbstractConfig<T> {
     }
 
     private String joinConfigFile() throws URISyntaxException, IOException {
-        InputStream resourceAsStream = AbstractConfig.class.getClassLoader().getResourceAsStream(getTemplateName());
+        InputStream resourceAsStream = AbstractConfigYml.class.getClassLoader().getResourceAsStream(getTemplateName());
         BufferedReader reader = new BufferedReader(new InputStreamReader(Objects.requireNonNull(resourceAsStream),
                 StandardCharsets.UTF_8));
         return reader.lines().collect(Collectors.joining("\n"));

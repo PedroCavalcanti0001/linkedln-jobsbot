@@ -3,16 +3,16 @@ package me.pedroeugenio.linkedlnjobsbot.config;
 
 import me.pedroeugenio.linkedlnjobsbot.models.Properties;
 
-public class AppConfig extends AbstractConfig<Properties> {
+public class AppConfig extends AbstractConfigYml<Properties> {
     private static final Properties PROPERTIES = new AppConfig().load();
 
     @Override
-    String getFilename() {
+    public String getFilename() {
         return "propriedades.yml";
     }
 
     @Override
-    String getTemplateName() {
+    public String getTemplateName() {
         return "propriedades_template.yml";
     }
 

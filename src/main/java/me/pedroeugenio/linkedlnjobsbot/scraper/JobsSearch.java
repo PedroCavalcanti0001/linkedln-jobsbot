@@ -21,8 +21,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static me.pedroeugenio.linkedlnjobsbot.scraper.JobsConstants.LOGGER;
+
 public class JobsSearch {
-    private Optional<Document> getPageDocument(String url) {
+    private Optional<Document> getPageDocument(String url) throws IOException {
         try {
             Connection.Response response = Jsoup.connect(url)
                     .userAgent(JobsConstants.USER_AGENT)
@@ -31,28 +33,34 @@ public class JobsSearch {
                     .execute();
             return Optional.of(response.parse());
         } catch (IOException e) {
-            JobsConstants.LOGGER.error("Ocorreu um erro ao tentar se conectar ao linkedln ->", e);
+            LOGGER.error("Ocorreu um erro ao tentar se conectar ao linkedln -> "+e.getMessage());
+            throw e;
         }
-        return Optional.empty();
     }
 
     private Job parseToJob(Element item) {
-        String link = item.select(".base-card__full-link").attr("href");
-        if (link.isEmpty())
-            link = item.getElementsByTag("a").attr("href");
-        String title = item.getElementsByClass("base-search-card__title").text();
-        String time = item.getElementsByClass("job-search-card__listdate--new").text();
-        String location = item.getElementsByClass("job-search-card__location").text();
-        String company = item.getElementsByClass("base-search-card__subtitle").text();
-        long jobId = 0L;
         try {
-            jobId = Long.parseLong(
-                    item.getElementsByClass("base-card").attr("data-entity-urn").replace("urn:li:jobPosting:", ""));
-        } catch (Exception ignored) {
+            String link = item.select(".base-card__full-link").attr("href");
+            if (link.isEmpty())
+                link = item.getElementsByTag("a").attr("href");
+            String title = item.getElementsByClass("base-search-card__title").text();
+            String time = item.getElementsByClass("job-search-card__listdate--new").text();
+            String location = item.getElementsByClass("job-search-card__location").text();
+            String company = item.getElementsByClass("base-search-card__subtitle").text();
+            long jobId = 0L;
+            try {
+                jobId = Long.parseLong(
+                        item.getElementsByClass("base-card").attr("data-entity-urn").replace("urn:li:jobPosting:", ""));
+            } catch (Exception ignored) {
+
+            }
+            Duration duration = TimeUtils.strTimeToDuration(time);
+            LocalDateTime localDateTime = TimeUtils.getTimeFromDuration(duration);
+            return new Job(title, localDateTime, location, link, company, time, jobId);
+        } catch (Exception ex) {
+            LOGGER.error("Ocorreu um erro ao tentar parsear job->", ex);
+            throw ex;
         }
-        Duration duration = TimeUtils.strTimeToDuration(time);
-        LocalDateTime localDateTime = TimeUtils.getTimeFromDuration(duration);
-        return new Job(title, localDateTime, location, link, company, time, jobId);
     }
 
     private Elements getJobsElements(Document document) {
@@ -61,18 +69,31 @@ public class JobsSearch {
 
     public List<Job> getAllJobList() {
         String url = makeUrl();
-        Optional<Document> pageDocument = getPageDocument(url);
-        if(pageDocument.isPresent()) {
-            Elements allElementJobs = getJobsElements(pageDocument.get());
-            List<Job> allJobs = allElementJobs.stream().map(this::parseToJob).collect(Collectors.toList());
-            return JobsFilterConfig.performFilters(allJobs);
+        Optional<Document> pageDocument;
+        while (true) {
+            try {
+                pageDocument = getPageDocument(url);
+                if (pageDocument.isPresent()) {
+                    LOGGER.info("Sucesso ao buscar jobs.");
+                    Elements allElementJobs = getJobsElements(pageDocument.get());
+                    LOGGER.info("Convertendo elementos html de cada job em objetos...");
+                    List<Job> allJobs = allElementJobs.stream().map(this::parseToJob).collect(Collectors.toList());
+                    return JobsFilterConfig.performFilters(allJobs);
+                }
+
+            } catch (Exception e) {
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
         }
-        return Collections.emptyList();
     }
 
     private String makeUrl() {
         try {
-            String filter = JobsFilterConfig.JOBS_FILTER.keywordsAsStr().replace("'", "\"");
+            String filter = JobsFilterConfig.CURRENT_FILTER.replace("\n", " ");
             MomentFilterEnum momentFilterEnum = JobsConstants.PROPERTIES.getMoment();
             String params = "";
             if (!momentFilterEnum.equals(MomentFilterEnum.ANY))
@@ -91,7 +112,7 @@ public class JobsSearch {
             URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
             return uri.toURL().toString();
         } catch (IOException | URISyntaxException e) {
-            JobsConstants.LOGGER.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage(), e);
         }
         return null;
     }

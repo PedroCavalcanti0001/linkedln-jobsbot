@@ -39,7 +39,7 @@ public class TelegramBot {
         insertEnd();
         try {
             SendResponse response = TelegramConstants.BOT.execute(new SendMessage(TelegramConstants.CHAT, sb.toString()));
-            if (response.isOk())
+             if (response.isOk())
                 TelegramConstants.LOGGER.info("Vagas enviadas com sucesso");
             else
                 TelegramConstants.LOGGER.error("Houve um erro ao enviar -> ".concat(String.valueOf(response.errorCode())));

@@ -2,16 +2,16 @@ package me.pedroeugenio.linkedlnjobsbot.config;
 
 import me.pedroeugenio.linkedlnjobsbot.models.NewJobsMessage;
 
-public class MessageConfig extends AbstractConfig<NewJobsMessage> {
+public class MessageConfig extends AbstractConfigYml<NewJobsMessage> {
     private static final NewJobsMessage JOBS_MESSAGE = new MessageConfig().load();
 
     @Override
-    String getFilename() {
+    public String getFilename() {
         return "mensagens_bot.yml";
     }
 
     @Override
-    String getTemplateName() {
+    public String getTemplateName() {
         return "mensagens_bot_template.yml";
     }
 

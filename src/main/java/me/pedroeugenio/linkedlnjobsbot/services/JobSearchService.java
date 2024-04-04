@@ -55,7 +55,7 @@ public class JobSearchService {
                 else if(PROPERTIES.getSendJobsNotFoundMessage())
                     TELEGRAM_BOT.sendJobsNotFoundMessage();
                 LOGGER.info("Nova busca será realizada "
-                        .concat(TimeUtils.nextSearchStrTime(LocalDateTime.now())));
+                        .concat(TimeUtils.nextSearchStrTime(LocalDateTime.now())).concat("\n"));
             }
 
             private List<Job> checkJobs(List<Job> jobList) {
